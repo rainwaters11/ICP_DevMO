@@ -58,5 +58,16 @@ git add README.md
 git commit -m "Added README.md with project intro and usage guide"
 git push
 
-📸 Week 1 Screenshot: [View](./screenshots/week1-submission.png)
+## 📸 Week 1 Submission
+
+Challenge: Advanced To-Do List  
+Status: ✅ Completed  
+Gist: [View Submission Gist](<paste gist link here>)  
+Screenshot: ![Week 1 Screenshot](./screenshots/week1-submission.png)
+
+### ✅ Features Implemented
+- Task creation, completion, deletion
+- Filtering (completed/incomplete/overdue)
+- Bonus: Task editing & due date sorting
+
 
