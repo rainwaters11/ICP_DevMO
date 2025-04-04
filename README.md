@@ -57,3 +57,6 @@ More features, challenges, and UI updates coming soon...
 git add README.md
 git commit -m "Added README.md with project intro and usage guide"
 git push
+
+📸 Week 1 Screenshot: [View](./screenshots/week1-submission.png)
+
