@@ -70,4 +70,9 @@ Screenshot: ![Week 1 Screenshot](./screenshots/week1-submission.png)
 - Filtering (completed/incomplete/overdue)
 - Bonus: Task editing & due date sorting
 
+## 🔗 Week 1 Gist Submission
+
+Check out my Week 1 submission here:
+
+👉 [My GitHub Gist](https://gist.github.com/rainwaters11/5893d3b5797811780d6f4aecbbdc3f5b)
 
