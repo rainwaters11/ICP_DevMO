@@ -58,7 +58,7 @@ git add README.md
 git commit -m "Added README.md with project intro and usage guide"
 git push
 
-## 📸 Week 1 Submission
+## 📸 Week 1 PART A Submission
 
 Challenge: Advanced To-Do List  
 Status: ✅ Completed  
@@ -70,9 +70,27 @@ Screenshot: ![Week 1 Screenshot](./screenshots/week1-submission.png)
 - Filtering (completed/incomplete/overdue)
 - Bonus: Task editing & due date sorting
 
-## 🔗 Week 1 Gist Submission
+## 🔗 Week 1 PART B Gist Submission
 
-Check out my Week 1 submission here:
+## Project Name: We Care Empathy
+
+### ✅ Achievements
+- Integrated NFID & Internet Identity login (with dropdown)
+- Verified principal identity via Rust backend (`whoami`)
+- Used `@nfid/identitykit` + React + Tailwind
+- Configured `dfx.json` and deployed Rust backend
+- Hooked up frontend to call backend securely
+
+### 🧪 How to Test
+1. `dfx start --background`
+2. `npm run build` in frontend
+3. `dfx deploy`
+4. Open frontend → test login with NFID or Internet Identity
+
+### 🗂 Included Files
+- `dfx.json`
+- `backend.did`
+- `frontend/src/AuthApp.jsx`
 
 👉 [My GitHub Gist](https://gist.github.com/rainwaters11/5893d3b5797811780d6f4aecbbdc3f5b)
 
