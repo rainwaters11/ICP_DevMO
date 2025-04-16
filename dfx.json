@@ -1,0 +1,26 @@
+{
+  "canisters": {
+    "bitcoin_dapp_backend": {
+      "main": "src/bitcoin_dapp_backend/main.mo",
+      "type": "motoko"
+    },
+    "bitcoin_dapp_frontend": {
+      "dependencies": [
+        "bitcoin_dapp_backend"
+      ],
+      "source": [
+        "src/bitcoin_dapp_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "bitcoin_dapp_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
