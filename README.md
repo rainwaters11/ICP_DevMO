@@ -94,3 +94,21 @@ Screenshot: ![Week 1 Screenshot](./screenshots/week1-submission.png)
 
 👉 [My GitHub Gist](https://gist.github.com/rainwaters11/5893d3b5797811780d6f4aecbbdc3f5b)
 
+Week 2
+
+## Live Demo
+
+![Landing Page](docs/landing-page.png)
+
+**How it works:**  
+The Svelte front‑end talks to a Motoko canister to fetch your Bitcoin data:
+
+```js
+import { bitcoin_dapp } from 'declarations/bitcoin_dapp';
+
+async function loadData() {
+  const address = await bitcoin_dapp.getBitcoinAddress();
+  const balance = await bitcoin_dapp.getBalance();
+  console.log('Address:', address);
+  console.log('Balance (sats):', balance);
+}
