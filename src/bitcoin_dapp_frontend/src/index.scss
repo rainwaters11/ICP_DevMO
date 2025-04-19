@@ -36,6 +36,88 @@ button[type="submit"] {
   display: none;
 }
 
+.bitcoin-info {
+  margin: 30px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  max-width: 600px;
+  background-color: #f9f9f9;
+}
+
+.bitcoin-info h2 {
+  margin-top: 0;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.bitcoin-info button {
+  background-color: #0073e6;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.bitcoin-info button:hover:not([disabled]) {
+  background-color: #0056b3;
+}
+
+.bitcoin-info button[disabled] {
+  background-color: #99c2eb;
+  cursor: not-allowed;
+}
+
+.error {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 10px;
+  border-radius: 4px;
+  border-left: 4px solid #c62828;
+  margin-bottom: 15px;
+}
+
+.mock-data-notice {
+  background-color: #fff8e1;
+  color: #ff8f00;
+  padding: 10px;
+  border-radius: 4px;
+  border-left: 4px solid #ff8f00;
+  margin-bottom: 15px;
+}
+
+.loading {
+  background-color: #e3f2fd;
+  color: #0277bd;
+  padding: 10px;
+  border-radius: 4px;
+  border-left: 4px solid #0277bd;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.loading::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 3px solid #0277bd;
+  border-radius: 50%;
+  border-top-color: transparent;
+  margin-right: 10px;
+  animation: loading-spinner 1s linear infinite;
+}
+
+@keyframes loading-spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .browser-warning {
   display: none;
 }

@@ -1,0 +1,6 @@
+service : {
+  formatBTC: (nat64) -> (text) query;
+  getBalance: () -> (nat64);
+  getBitcoinAddress: () -> (text);
+  getMockBalance: () -> (nat64);
+}

@@ -1,26 +1,52 @@
 {
+  "version": 1,
+
   "canisters": {
+    "bitcoin_dapp": {
+      "type": "motoko",
+      "main": "src/bitcoin_dapp/main.mo",
+      "candid": "src/bitcoin_dapp/bitcoin_dapp.did"
+    },
     "bitcoin_dapp_backend": {
-      "main": "src/bitcoin_dapp_backend/main.mo",
-      "type": "motoko"
+      "type": "motoko",
+      "main": "src/bitcoin_dapp_backend/main.mo"
     },
     "bitcoin_dapp_frontend": {
       "dependencies": [
+        "bitcoin_dapp",
         "bitcoin_dapp_backend"
       ],
+      "frontend": {
+        "entrypoint": "src/bitcoin_dapp_frontend/index.html"
+      },
       "source": [
-        "src/bitcoin_dapp_frontend/dist"
+        "src/bitcoin_dapp_frontend/assets",
+        "src/bitcoin_dapp_frontend/src"
       ],
-      "type": "assets",
-      "workspace": "bitcoin_dapp_frontend"
+      "type": "assets"
     }
   },
-  "defaults": {
-    "build": {
-      "args": "",
-      "packtool": ""
+
+  "networks": {
+    "local": {
+      "candid": "src/bitcoin_dapp/bitcoin_dapp.did",
+      "package": "bitcoin_dapp_package",
+      "bitcoin": {
+        "mainnet": [],
+        "testnet": [],
+        "regtest": [
+          {
+            "address": "127.0.0.1:18444",
+            "network": "regtest"
+          }
+        ]
+      },
+      "ecdsa": [
+        {
+          "key_name": "dfx_test_key",
+          "curve": "secp256k1"
+        }
+      ]
     }
-  },
-  "output_env_file": ".env",
-  "version": 1
+  }
 }

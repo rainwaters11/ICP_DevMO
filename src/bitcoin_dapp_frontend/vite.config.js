@@ -40,4 +40,12 @@ export default defineConfig({
     ],
     dedupe: ['@dfinity/agent'],
   },
+  define: {
+    'process.env': {
+      NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      DFX_NETWORK: JSON.stringify(process.env.DFX_NETWORK || 'local'),
+      CANISTER_ID_BITCOIN_DAPP: JSON.stringify(process.env.CANISTER_ID_BITCOIN_DAPP || 'bkyz2-fmaaa-aaaaa-qaaaq-cai'),
+      CANISTER_ID_BITCOIN_DAPP_BACKEND: JSON.stringify(process.env.CANISTER_ID_BITCOIN_DAPP_BACKEND || 'bd3sg-teaaa-aaaaa-qaaba-cai')
+    }
+  }
 });
