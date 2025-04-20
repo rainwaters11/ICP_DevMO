@@ -9,9 +9,13 @@ class App {
   errorMessage = '';
   isUsingMockData = false;
   isLoading = false;
+  frontendStatus = 'Unknown';
+  canisterInfo = {};
 
   constructor() {
     this.#fetchBitcoinData();
+    this.#checkFrontendStatus();
+    this.#getCanisterInfo();
     this.#render();
   }
 
@@ -52,6 +56,57 @@ class App {
       this.isLoading = false;
       this.#render();
     }
+  };
+
+  #checkFrontendStatus = async () => {
+    try {
+      if (window.bitcoin_dapp_frontend && typeof window.bitcoin_dapp_frontend.status === 'function') {
+        this.frontendStatus = await window.bitcoin_dapp_frontend.status();
+      } else {
+        this.frontendStatus = "Frontend canister actor not available";
+      }
+    } catch (error) {
+      console.error('Error checking frontend status:', error);
+      this.frontendStatus = `Error: ${error.message || 'Failed to check frontend status'}`;
+    }
+    this.#render();
+  };
+
+  #getCanisterInfo = () => {
+    if (window.debugICP && typeof window.debugICP.getCanisterIds === 'function') {
+      this.canisterInfo = window.debugICP.getCanisterIds();
+      
+      // Add environment info
+      if (typeof window.debugICP.getEnvironment === 'function') {
+        this.canisterInfo.env = window.debugICP.getEnvironment();
+      }
+    } else {
+      this.canisterInfo = { error: "Debug information unavailable" };
+    }
+    this.#render();
+  };
+  
+  #reloadActors = async () => {
+    try {
+      if (window.debugICP && typeof window.debugICP.reloadActors === 'function') {
+        const result = await window.debugICP.reloadActors();
+        if (result) {
+          this.errorMessage = "Actors reloaded successfully";
+        } else {
+          this.errorMessage = "Failed to reload actors";
+        }
+      } else {
+        this.errorMessage = "Reload function not available";
+      }
+    } catch (error) {
+      console.error('Error reloading actors:', error);
+      this.errorMessage = `Error reloading: ${error.message}`;
+    }
+    
+    // Refresh data and status after reload attempt
+    this.#fetchBitcoinData();
+    this.#checkFrontendStatus();
+    this.#getCanisterInfo();
   };
 
   #handleSubmit = async (e) => {
@@ -95,7 +150,70 @@ class App {
             ${this.isLoading ? 'Loading...' : 'Refresh Bitcoin Data'}
           </button>
         </div>
+
+        <div class="canister-debug-info">
+          <h2>Canister Debug Information</h2>
+          <p><strong>Frontend Status:</strong> ${this.frontendStatus}</p>
+          
+          <div class="canister-ids">
+            <h3>Canister IDs:</h3>
+            <pre>${JSON.stringify(this.canisterInfo, null, 2)}</pre>
+          </div>
+
+          <div class="debug-actions">
+            <button @click=${this.#reloadActors}>Reload Canister Actors</button>
+            <button @click=${this.#checkFrontendStatus}>Check Frontend Status</button>
+          </div>
+        </div>
       </main>
+
+      <style>
+        .canister-debug-info {
+          margin-top: 30px;
+          padding: 15px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          background-color: #f9f9f9;
+        }
+        
+        .canister-debug-info h2 {
+          color: #333;
+          border-bottom: 1px solid #ddd;
+          padding-bottom: 10px;
+        }
+        
+        .canister-ids pre {
+          background-color: #eee;
+          padding: 10px;
+          border-radius: 3px;
+          overflow-x: auto;
+          font-family: monospace;
+          font-size: 14px;
+        }
+        
+        .debug-actions {
+          margin-top: 15px;
+        }
+        
+        .debug-actions button {
+          margin-right: 10px;
+          padding: 8px 12px;
+          background-color: #f0ad4e;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        
+        .debug-actions button:hover {
+          background-color: #ec971f;
+        }
+        
+        .error {
+          color: #d9534f;
+          font-weight: bold;
+        }
+      </style>
     `;
     render(body, document.getElementById('root'));
     
@@ -106,11 +224,23 @@ class App {
       form.addEventListener('submit', this.#handleSubmit);
     }
     
-    // Add event listener to the refresh button after rendering
+    // Add event listeners for all buttons
     const refreshButton = document.querySelector('.bitcoin-info button');
     if (refreshButton) {
       refreshButton.removeEventListener('click', this.#fetchBitcoinData);
       refreshButton.addEventListener('click', this.#fetchBitcoinData);
+    }
+    
+    const reloadButton = document.querySelector('.debug-actions button:nth-child(1)');
+    if (reloadButton) {
+      reloadButton.removeEventListener('click', this.#reloadActors);
+      reloadButton.addEventListener('click', this.#reloadActors);
+    }
+    
+    const checkFrontendButton = document.querySelector('.debug-actions button:nth-child(2)');
+    if (checkFrontendButton) {
+      checkFrontendButton.removeEventListener('click', this.#checkFrontendStatus);
+      checkFrontendButton.addEventListener('click', this.#checkFrontendStatus);
     }
   }
 }

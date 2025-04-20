@@ -2,12 +2,33 @@ import { defineConfig } from 'vite';
 import { fileURLToPath, URL } from 'url';
 import environment from 'vite-plugin-environment';
 import dotenv from 'dotenv';
+import { resolve } from 'path';
 
 dotenv.config({ path: '../../.env' });
 
 export default defineConfig({
   build: {
     emptyOutDir: true,
+    // Add CSP-compatible settings
+    target: 'es2015',
+    minify: 'terser',
+    terserOptions: {
+      format: {
+        comments: false,
+      },
+    },
+    rollupOptions: {
+      output: {
+        // Avoid using eval in the code by setting format to es
+        format: 'es',
+        // Disable code splitting to prevent dynamic imports that might use eval
+        manualChunks: undefined,
+      },
+      // External libraries that shouldn't be bundled
+      external: [
+        // Add any external dependencies here if needed
+      ]
+    },
   },
   optimizeDeps: {
     esbuildOptions: {
@@ -30,14 +51,14 @@ export default defineConfig({
     environment("all", { prefix: "DFX_" }),
   ],
   resolve: {
-    alias: [
-      {
-        find: "declarations",
-        replacement: fileURLToPath(
-          new URL("../declarations", import.meta.url)
-        ),
-      },
-    ],
+    alias: {
+      // Define exact alias paths to each declaration file
+      'bitcoin_dapp_declarations': resolve(__dirname, '../../src/declarations/bitcoin_dapp'),
+      'bitcoin_dapp_backend_declarations': resolve(__dirname, '../../src/declarations/bitcoin_dapp_backend'),
+      'bitcoin_dapp_frontend_declarations': resolve(__dirname, '../../src/declarations/bitcoin_dapp_frontend'),
+      'declarations': resolve(__dirname, '../../src/declarations'),
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
     dedupe: ['@dfinity/agent'],
   },
   define: {

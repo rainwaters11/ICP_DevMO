@@ -14,5 +14,8 @@
   "type": "module",
   "workspaces": [
     "src/bitcoin_dapp_frontend"
-  ]
+  ],
+  "devDependencies": {
+    "terser": "^5.39.0"
+  }
 }

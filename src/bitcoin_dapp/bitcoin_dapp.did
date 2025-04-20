@@ -1,6 +1,17 @@
 service : {
-  formatBTC: (nat64) -> (text) query;
-  getBalance: () -> (nat64);
+  // User registration and address management
+  registerUser: () -> (text);
+  getUserAddress: () -> (opt text);
+  generateBitcoinAddress: (principal) -> (text);
   getBitcoinAddress: () -> (text);
+
+  // Balance and transaction functions
+  getBalance: (text) -> (nat64);
   getMockBalance: () -> (nat64);
+  formatBTC: (nat64) -> (text) query;
+  getTransactionHistory: (text) -> (vec record { txid: text; height: nat32; value: nat64 });
+
+  // Fee estimation utilities
+  estimateTransactionFee: (nat64, opt nat64) -> (nat64) query;
+  getRecommendedFees: () -> (record { slow: nat64; medium: nat64; fast: nat64 }) query;
 }

@@ -47,6 +47,26 @@
           "curve": "secp256k1"
         }
       ]
+    },
+    "ic": {
+      "candid": "src/bitcoin_dapp/bitcoin_dapp.did",
+      "package": "bitcoin_dapp_package",
+      "providers": ["https://icp0.io"],
+      "bitcoin": {
+        "mainnet": [],
+        "testnet": [
+          {
+            "network": "testnet"
+          }
+        ],
+        "regtest": []
+      },
+      "ecdsa": [
+        {
+          "key_name": "test_key_1",
+          "curve": "secp256k1"
+        }
+      ]
     }
   }
 }

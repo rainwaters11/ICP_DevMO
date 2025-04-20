@@ -1,0 +1,11 @@
+{
+  "bitcoin_dapp": {
+    "ic": "cjrjj-3yaaa-aaaai-athdq-cai"
+  },
+  "bitcoin_dapp_backend": {
+    "ic": "de7nh-uqaaa-aaaai-athea-cai"
+  },
+  "bitcoin_dapp_frontend": {
+    "ic": "dd6lt-ziaaa-aaaai-atheq-cai"
+  }
+}
